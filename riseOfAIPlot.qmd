@@ -17,7 +17,18 @@ categories:
   - DataViz
   - AI
   - Our World in Data
+bibliography: references.bib
 ---
+
+## Introduction
+
+This project was conducted to test my `ggplot2` skills in reproducing [**The rise of artificial intelligence over the last 8 decades**](https://ourworldindata.org/brief-history-of-ai)plot by [Our World in Data](https://ourworldindata.org/). The plot has some slight differences based on the data used in my version vs the original.
+
+The original plot is licensed under [**CC-BY**](https://creativecommons.org/licenses/by/4.0/) by the authors Charlie Giattino, Edouard Mathieu, and Max Roser. This project is licensed the same.
+
+The data is taken from [@sevilla2022] -- [Compute Trends Across Three eras of Machine Learning](https://arxiv.org/pdf/2202.05924.pdf). Published in arXiv on March 9, 2022. The data are [freely available](https://docs.google.com/spreadsheets/d/1AAIebjNsnJj_uKALHbXNfn3_YsT6sHXtCU0q7OIPuc4/edit#gid=0) to the public.
+
+The original plot has fewer data points, likely due to additions by the data authors after the original article's release.  
 
 ## Load required packages
 
@@ -97,17 +108,24 @@ data |>
 
 7.  There are 4 relevant columns, the AI system, the publication data, the training computation FLOP, and the domain.
 
-8. No missing values, data seems clean
+8.  No missing values, data seems clean
 
-9. Summary statistics are as expected for exponential data
+9.  Summary statistics are as expected for exponential data
 
 ## Reproduced plot & code
 
-### Plot
+::: panel-tabset
+## `ggplot2`
+
 ```{r plot-render, fig.height=12, fig.width=10}
 #| ref.label: code-for-plot
 #| echo: false
 ```
+
+## Original
+
+![](https://ourworldindata.org/uploads/2022/12/ai-training-computation-3.png){fig-align="center"}
+:::
 
 ### Code
 
@@ -128,7 +146,7 @@ labels_vals <- as.vector(c("0", "10 FLOP", "1,000 FLOP", #<2>
 
 # Add font families 
 font_add_google("Playfair Display", "Playfair Display") #<3>
-font_add_google("Open Sans", "Open Sans")
+font_add_google("Lato", "Lato")
 showtext_auto()
 
 # Plot
@@ -199,34 +217,34 @@ plot <- data |>
                linewidth = 0.05, linetype = 2, color = "#eaeaea") +
   geom_segment(x = as.Date("1953-01-01"), xend = as.Date("2025-01-01"), #<6>
                y = log10(2.5), yend = log10(2.5),
-               linewidth = 0.03, linetype = 1, color = "#999999") + 
+               linewidth = 0.03, linetype = 1, color = "#666666") + 
   geom_segment(x = as.Date("1940-01-01"), xend = as.Date("1940-01-01"), #<7>
               y = log10(0.09), yend = log10(0.13),
-               linewidth = 0.03, linetype = 1, color = "#999999") + 
+               linewidth = 0.03, linetype = 1, color = "#666666") + 
   geom_segment(x = as.Date("1950-01-01"), xend = as.Date("1950-01-01"),
               y = log10(0.09), yend = log10(0.13),
-               linewidth = 0.03, linetype = 1, color = "#999999") +
+               linewidth = 0.03, linetype = 1, color = "#666666") +
   geom_segment(x = as.Date("1960-01-01"), xend = as.Date("1960-01-01"),
               y = log10(0.09), yend = log10(0.13),
-               linewidth = 0.03, linetype = 1, color = "#999999") +
+               linewidth = 0.03, linetype = 1, color = "#666666") +
   geom_segment(x = as.Date("1970-01-01"), xend = as.Date("1970-01-01"),
               y = log10(0.09), yend = log10(0.13),
-               linewidth = 0.03, linetype = 1, color = "#999999") +
+               linewidth = 0.03, linetype = 1, color = "#666666") +
   geom_segment(x = as.Date("1980-01-01"), xend = as.Date("1980-01-01"),
               y = log10(0.09), yend = log10(0.13),
-               linewidth = 0.03, linetype = 1, color = "#999999") +
+               linewidth = 0.03, linetype = 1, color = "#666666") +
   geom_segment(x = as.Date("1990-01-01"), xend = as.Date("1990-01-01"),
               y = log10(0.09), yend = log10(0.13),
-               linewidth = 0.03, linetype = 1, color = "#999999") +
+               linewidth = 0.03, linetype = 1, color = "#666666") +
   geom_segment(x = as.Date("2000-01-01"), xend = as.Date("2000-01-01"),
               y = log10(0.09), yend = log10(0.13),
-               linewidth = 0.03, linetype = 1, color = "#999999") +
+               linewidth = 0.03, linetype = 1, color = "#666666") +
   geom_segment(x = as.Date("2010-01-01"), xend = as.Date("2010-01-01"),
               y = log10(0.09), yend = log10(0.13),
-               linewidth = 0.03, linetype = 1, color = "#999999") +
+               linewidth = 0.03, linetype = 1, color = "#666666") +
   geom_segment(x = as.Date("2020-01-01"), xend = as.Date("2020-01-01"),
               y = log10(0.09), yend = log10(0.13),
-               linewidth = 0.03, linetype = 1, color = "#999999") +
+               linewidth = 0.03, linetype = 1, color = "#666666") +
   geom_point(alpha = 0.85) + #<8>
   geom_curve( #<9>
     aes(x = as.Date("1980-04-01"), y = log10(1.75e+07),
@@ -313,7 +331,7 @@ plot <- data |>
         xend = as.Date("1938-01-01"), yend = log10(1e+23)),
     curvature = -0.3,
     arrow = arrow(length = unit(0.005, "npc"), type = "closed"),
-    color = "#999999",
+    color = "#929292",
     linewidth = 0.1
     ) +
   geom_curve( 
@@ -321,7 +339,7 @@ plot <- data |>
         xend = as.Date("1948-03-01"), yend = log10(5e+24)),
     curvature = -0.15,
     arrow = arrow(length = unit(0.005, "npc"), type = "closed"),
-    color = "#999999",
+    color = "#929292",
     linewidth = 0.1
     ) +
   geom_curve(
@@ -329,7 +347,7 @@ plot <- data |>
         xend = as.Date("1956-01-01"), yend = log10(0.05)),
     curvature = -0.15,
     arrow = arrow(length = unit(0.005, "npc"), type = "closed"),
-    color = "#999999",
+    color = "#929292",
     linewidth = 0.1
     ) +
   geom_curve(
@@ -337,13 +355,13 @@ plot <- data |>
         xend = as.Date("1997-01-01"), yend = log10(0.05)),
     curvature = -0.15,
     arrow = arrow(length = unit(0.005, "npc"), type = "closed"),
-    color = "#999999",
+    color = "#929292",
     linewidth = 0.1
     ) +
   annotate(geom = "richtext", #<11>
            x = as.Date("1950-07-05"), y = log10(40), 
            label = "<span style='color:#9674B0;'><b>Theseus:</b> built in 1950 and trained on around 40 floating point operations (FLOP)<br><i>Theseus was a small robotic mouse, developed by Claude Shannon,<br>that could navigate a simple maze and remember its course.</i></span>",
-           size = 2.5,
+           size = 3,
            family = "Open Sans",
            fill = NA,
            label.color = NA,
@@ -352,7 +370,7 @@ plot <- data |>
   annotate(geom = "richtext", 
            x = as.Date("1960-06-30"), y = log10(9900), 
            label = "<span style='color:#B4477A;'><b>ADALINE:</b> built in 1960 and trained on aroiund 9,900 FLOP<br><i>An early single-layer artificial neural network.</i></span>",
-           size = 2.5,
+           size = 3,
            family = "Open Sans",
            fill = NA,
            label.color = NA,
@@ -361,7 +379,7 @@ plot <- data |>
   annotate(geom = "richtext", 
            x = as.Date("1957-01-01"), y = log10(695000), 
            label = "<span style='color:#B4477A;'><b>Perceptron Mark I:</b> built in 1957/58, 695,000 FLOP<br><i>Regarded as the first artificial neural network, it could visually distinguish cards marked on the left side<br>from those marked on the right, but it could not learn to recognize many other patterns.</i></span>",
-           size = 2.5,
+           size = 3,
            family = "Open Sans",
            fill = NA,
            label.color = NA,
@@ -370,7 +388,7 @@ plot <- data |>
   annotate(geom = "richtext", 
            x = as.Date("1992-09-01"), y = log10(1400000000), 
            label = "<span style='color:#476589;'>Fuzzy NN</span>",
-           size = 2.5,
+           size = 3,
            family = "Open Sans",
            fill = NA,
            label.color = NA,
@@ -379,7 +397,7 @@ plot <- data |>
   annotate(geom = "richtext", 
            x = as.Date("1980-04-01"), y = log10(0.5e+08), 
            label = "<span style='color:#B4477A;'><b>Neocognitron:</b> built in 1980, 228 million FLOP<br><i>A precursor of modern vision systems. It could recognize<br>handwritten Japanese characters and a few other patterns.</i></span>",
-           size = 2.5,
+           size = 3,
            family = "Open Sans",
            fill = NA,
            label.color = NA,
@@ -388,7 +406,7 @@ plot <- data |>
   annotate(geom = "richtext", 
            x = as.Date("1959-02-01"), y = log10(6e+08), 
            label = "<span style='color:#9674B0;'>Pandemonium (morse)</span>",
-           size = 2.5,
+           size = 3,
            family = "Open Sans",
            fill = NA,
            label.color = NA,
@@ -397,7 +415,7 @@ plot <- data |>
   annotate(geom = "richtext", 
            x = as.Date("1959-10-01"), y = log10(1.28e+08), 
            label = "<span style='color:#4B946C;'>Samuel Neural Checkers</span>",
-           size = 2.5,
+           size = 3,
            family = "Open Sans",
            fill = NA,
            label.color = NA,
@@ -406,7 +424,7 @@ plot <- data |>
   annotate(geom = "richtext", 
            x = as.Date("1987-03-06"), y = log10(8e+10), 
            label = "<span style='color:#476589; text-align:center;'><b>NetTalk:</b> 1987; 81 billion FLOP<br><i>NetTalk was able to learn to pronounce some English text by given<br>text as input and matching it to phonetic transcriptions. Among its many<br>limitations, it did not perform the visual recognition of the text itself.</i></span>",
-           size = 2.5,
+           size = 3,
            family = "Open Sans",
            fill = NA,
            label.color = NA,
@@ -415,7 +433,7 @@ plot <- data |>
   annotate(geom = "richtext", 
            x = as.Date("1989-12-01"), y = log10(8.12e+10), 
            label = "<span style='color:#9674B0;'>ALVINN</span>",
-           size = 2.5,
+           size = 3,
            family = "Open Sans",
            fill = NA,
            label.color = NA,
@@ -424,7 +442,7 @@ plot <- data |>
   annotate(geom = "richtext", 
            x = as.Date("1989-12-01"), y = log10(4.34e+10), 
            label = "<span style='color:#B4477A;'>Zip CNN</span>",
-           size = 2.5,
+           size = 3,
            family = "Open Sans",
            fill = NA,
            label.color = NA,
@@ -433,7 +451,7 @@ plot <- data |>
   annotate(geom = "richtext", 
            x = as.Date("1996-06-18"), y = log10(1.29e+10), 
            label = "<span style='color:#B4477A;'>System 11</span>",
-           size = 2.5,
+           size = 3,
            family = "Open Sans",
            fill = NA,
            label.color = NA,
@@ -442,7 +460,7 @@ plot <- data |>
   annotate(geom = "richtext", 
            x = as.Date("1986-10-01"), y = log10(1.24e+08), 
            label = "<span style='color:#9674B0;'>Back-propagation</span>",
-           size = 2.5,
+           size = 3,
            family = "Open Sans",
            fill = NA,
            label.color = NA,
@@ -451,7 +469,7 @@ plot <- data |>
   annotate(geom = "richtext", 
            x = as.Date("1989-01-01"), y = log10(1.2e+08), 
            label = "<span style='color:#9674B0;'>Innervator</span>",
-           size = 2.5,
+           size = 3,
            family = "Open Sans",
            fill = NA,
            label.color = NA,
@@ -460,7 +478,7 @@ plot <- data |>
     annotate(geom = "richtext", 
            x = as.Date("1998-05-15"), y = log10(2.27e+11), 
            label = "<span style='color:#476589;'>RNN for speech</span>",
-           size = 2.5,
+           size = 3,
            family = "Open Sans",
            fill = NA,
            label.color = NA,
@@ -469,7 +487,7 @@ plot <- data |>
   annotate(geom = "richtext", 
            x = as.Date("1992-05-01"), y = log10(1.82e+13), 
            label = "<span style='color:#4B946C; text-align:center;'><b>TD-Gammon:</b> 1992; 18 trillion FLOP<br><i>TD-Gammon learned to play backgammon at a high<br>level, just below the top human players of the time.</i></span>",
-           size = 2.5,
+           size = 3,
            family = "Open Sans",
            fill = NA,
            label.color = NA,
@@ -478,7 +496,7 @@ plot <- data |>
   annotate(geom = "richtext", 
            x = as.Date("1998-11-01"), y = log10(2.81e+12), 
            label = "<span style='color:#B4477A;'>LeNet-5</span>",
-           size = 2.5,
+           size = 3,
            family = "Open Sans",
            fill = NA,
            label.color = NA,
@@ -487,7 +505,7 @@ plot <- data |>
   annotate(geom = "richtext", 
            x = as.Date("1997-11-15"), y = log10(2.10e+13), 
            label = "<span style='color:#476589;'>LSTM</span>",
-           size = 2.5,
+           size = 3,
            family = "Open Sans",
            fill = NA,
            label.color = NA,
@@ -496,7 +514,7 @@ plot <- data |>
   annotate(geom = "richtext", 
            x = as.Date("2001-12-08"), y = log10(6.3e+13), 
            label = "<span style='color:#B4477A;'>Decision tree</span>",
-           size = 2.5,
+           size = 3,
            family = "Open Sans",
            fill = NA,
            label.color = NA,
@@ -505,7 +523,7 @@ plot <- data |>
     annotate(geom = "richtext", 
            x = as.Date("2003-03-15"), y = log10(1.3e+15), 
            label = "<span style='color:#476589;'>NPLM</span>",
-           size = 2.5,
+           size = 3,
            family = "Open Sans",
            fill = NA,
            label.color = NA,
@@ -514,7 +532,7 @@ plot <- data |>
   annotate(geom = "richtext", 
            x = as.Date("2003-07-15"), y = log10(8e+15), 
            label = "<span style='color:#B4477A; text-align:center;'><b>AlexNet:</b> 2012; 470 petaFLOP<br><i>A pivotal early deep learning system, or neural network with many layers, that<br>could recognize images of objects such as dogs and cars at near-human level.</i></span>",
-           size = 2.5,
+           size = 3,
            family = "Open Sans",
            fill = NA,
            label.color = NA,
@@ -523,7 +541,7 @@ plot <- data |>
   annotate(geom = "richtext", 
            x = as.Date("2006-06-15"), y = log10(2e+17), 
            label = "<span style='color:#4B946C; text-align:center;'><b>MuZero:</b> 2019; 48,000 petaFLOP<br><i>MuZero is a single system that achieved superhuman performance at Go<br>chess, and shogi (Japanese chess) - all without ever being told the rules.</i></span>",
-           size = 2.5,
+           size = 3,
            family = "Open Sans",
            fill = NA,
            label.color = NA,
@@ -532,7 +550,7 @@ plot <- data |>
   annotate(geom = "richtext", 
            x = as.Date("2009-06-15"), y = log10(5e+18), 
            label = "<span style='color:#9674B0; text-align:center;'><b>AlphaFold:</b> 2020; 100,000 petaFLOP<br><i>AlphaFold was a major advance toward solving the protein-folding problem in biology.</i></span>",
-           size = 2.5,
+           size = 3,
            family = "Open Sans",
            fill = NA,
            label.color = NA,
@@ -541,7 +559,7 @@ plot <- data |>
   annotate(geom = "richtext", 
            x = as.Date("2010-06-15"), y = log10(2e+21),
            label = "<span style='color:#476589; text-align:center;'><b>NEO:</b> 2021; 1.1 million petaFLOP<br><i>Recommendation systems like Facebook&apos;s NEO determine what you see on<br>your social media feed, online shopping, streaming services, and more.</i></span>",
-           size = 2.5,
+           size = 3,
            family = "Open Sans",
            fill = NA,
            label.color = NA,
@@ -550,7 +568,7 @@ plot <- data |>
   annotate(geom = "richtext", 
            x = as.Date("2009-06-15"), y = log10(7e+19),
            label = "<span style='color:#4B946C; text-align:center;'><b>AlphaGo:</b> 2016; 1.9 million petaFLOP<br><i>AlphaGo defeated 18-time champion Lee Sedol at the ancient and highly<br>complex board game Go. The best Go players are no longer human.</i></span>",
-           size = 2.5,
+           size = 3,
            family = "Open Sans",
            fill = NA,
            label.color = NA,
@@ -559,7 +577,7 @@ plot <- data |>
   annotate(geom = "richtext", 
            x = as.Date("2011-06-15"), y = log10(5e+22),
            label = "<span style='color:#D8847C; text-align:center;'><b>DALL-E:</b> 2021; 47 million petaFLOP<br><i>DALL-E can generate high-quality images from writteen descriptions.</i></span>",
-           size = 2.5,
+           size = 3,
            family = "Open Sans",
            fill = NA,
            label.color = NA,
@@ -568,7 +586,7 @@ plot <- data |>
   annotate(geom = "richtext", 
            x = as.Date("2012-06-15"), y = log10(5e+23),
            label = "<span style='color:#476589; text-align:center;'><b>GPT-3:</b> 2021; 314 million petaFLOP<br><i>GPT-3 can produce high-quality text that is<br>often indistinguishable from human writing.</i></span>",
-           size = 2.5,
+           size = 3,
            family = "Open Sans",
            fill = NA,
            label.color = NA,
@@ -577,7 +595,7 @@ plot <- data |>
   annotate(geom = "richtext", 
            x = as.Date("2014-12-15"), y = log10(1e+25),
            label = "<span style='color:#476589; text-align:center;'><b>PaLM:</b> 2022; built in 2022 and trained on 2.5 petaFLOP<br><i>PaLM can generate high-quality text, explain some jokes, cause & effect, and more.</i></span>",
-           size = 2.5,
+           size = 3,
            family = "Open Sans",
            fill = NA,
            label.color = NA,
@@ -586,7 +604,7 @@ plot <- data |>
   annotate(geom = "richtext", 
            x = as.Date("2016-12-15"), y = log10(1e+26),
            label = "<span style='color:#476589; text-align:center;'><b>Minerva:</b> 2022; built in 2022 and trained on 2.7 petaFLOP<br><i>Minerva can solve complex mathematical problems at the college level.</i></span>",
-           size = 2.5,
+           size = 3,
            family = "Open Sans",
            fill = NA,
            label.color = NA,
@@ -594,8 +612,8 @@ plot <- data |>
            vjust = 0.15) +
     annotate(geom = "richtext", #<12>
            x = as.Date("1938-01-01"), y = log10(5e+21),
-           label = "<span style='color:#999999; text-align:center;'>The data is shown on a logarithmic scale, so that<br>from each grid-line to the next it shows a 100-fold<br>increase in training computation.</span>",
-           size = 2.5,
+           label = "<span style='color:#929292; text-align:center;'>The data is shown on a logarithmic scale, so that<br>from each grid-line to the next it shows a 100-fold<br>increase in training computation.</span>",
+           size = 2.75,
            family = "Open Sans",
            fill = NA,
            label.color = NA,
@@ -603,8 +621,8 @@ plot <- data |>
            vjust = 0.25) +
   annotate(geom = "richtext", 
            x = as.Date("1948-06-01"), y = log10(3e+23),
-           label = "<span style='color:#999999; text-align:center;'>Computation is measured in floating point operations (FLOP).<br>One FLOP is equivalent to one addition, subtraction,<br>multiplication, or division of two decimal numbers.</span>",
-           size = 2.5,
+           label = "<span style='color:#929292; text-align:center;'>Computation is measured in floating point operations (FLOP).<br>One FLOP is equivalent to one addition, subtraction,<br>multiplication, or division of two decimal numbers.</span>",
+           size = 2.75,
            family = "Open Sans",
            fill = NA,
            label.color = NA,
@@ -612,7 +630,7 @@ plot <- data |>
            vjust = 0.15) +
   annotate(geom = "richtext", 
            x = as.Date("1938-01-01"), y = log10(7e+25),
-           label = "<span style='color:#5b5b5b; text-align:center;'>Shown on the vertical axis in the <b>training computation</b><br>that was used to train the AI systems.</span>",
+           label = "<span style='color:#666666; text-align:center;'>Shown on the vertical axis in the <b>training computation</b><br>that was used to train the AI systems.</span>",
            size = 3.75,
            fill = NA,
            label.color = NA,
@@ -620,14 +638,14 @@ plot <- data |>
            vjust = 0.15) +
   annotate(geom = "richtext",
            x = as.Date("1938-01-01"), y = log10(0.6),
-           label = "<span style='color:#5b5b5b;'><i>The first electronic computers<br>were developed in the 1940s</i></span>", 
+           label = "<span style='color:#666666;'><i>The first electronic computers<br>were developed in the 1940s</i></span>", 
            hjust = 0,
            size = 2.85,
            fill = NA,
            label.color = NA) +
   annotate(geom = "richtext", #<13>
            x = as.Date("1957-01-01"), y = log(0.08),
-           label = "<span style='color:#5b5b5b;'><i>1956: The Dartmouth workshop on AI, often<br>seen as the beginning of the field of AI research</i></span>",
+           label = "<span style='color:#666666;'><i>1956: The Dartmouth workshop on AI, often<br>seen as the beginning of the field of AI research</i></span>",
            hjust = 0,
            size = 3,
            family = "Open Sans",
@@ -635,7 +653,7 @@ plot <- data |>
            label.color = NA) +
   annotate(geom = "richtext",
            x = as.Date("1998-01-01"), y = log(0.08),
-           label = "<span style='color:#5b5b5b;'><i>1997: Deep Blue beats world<br>chess champion Garry Kasparov</i></span>",
+           label = "<span style='color:#666666;'><i>1997: Deep Blue beats world<br>chess champion Garry Kasparov</i></span>",
            hjust = 0,
            size = 3,
            family = "Open Sans",
@@ -643,7 +661,7 @@ plot <- data |>
            label.color = NA) +
   annotate(geom = "richtext", #<14>
            x = as.Date("1938-01-01"), y = log10(0.00003),
-           label = "<span style='color:#5b5b5b; text-align:center;'>The data on training computation is taken from Sevilla et al. (2022) - Parameter, Compute, and Data Trends in Machine Learning.<br>It is estimated by the authors and comes with some uncertainty. The authors expect the estimated to be correct within a factor or two.<br></span><span style='color:#524E98;'>OurWorldInData.org </span><span style='color:#5b5b5b;'>- Research and data to make progress against the world&apos;s largest problems.",
+           label = "<span style='color:#666666; text-align:center;'>The data on training computation is taken from Sevilla et al. (2022) - Parameter, Compute, and Data Trends in Machine Learning.<br>It is estimated by the authors and comes with some uncertainty. The authors expect the estimated to be correct within a factor or two.<br></span><span style='color:#524E98;'>OurWorldInData.org </span><span style='color:#666666;'>- Research and data to make progress against the world&apos;s largest problems.",
            size = 2.3,
            family = "Open Sans",
            fill = NA,
@@ -652,7 +670,7 @@ plot <- data |>
            vjust = 0.15) +
   annotate(geom = "richtext", 
            x = as.Date("2022-01-01"), y = log10(0.00005),
-           label = "<span style='color:#5b5b5b; text-align:center;'>Licensed under </span><span style='color:#524E98;'>CC-BY  </span><span style='color:#5b5b5b;'>by the authors<br>Charlie Giattino, Edouard Mathieu, and Max Roser.",
+           label = "<span style='color:#666666; text-align:center;'>Licensed under </span><span style='color:#524E98;'>CC-BY  </span><span style='color:#666666;'>by the authors<br>Charlie Giattino, Edouard Mathieu, and Max Roser.",
            size = 2.3,
            family = "Open Sans",
            fill = NA,
@@ -661,14 +679,14 @@ plot <- data |>
            vjust = 0.1) +
   annotate(geom = "richtext", #<15>
            x = as.Date("1938-01-01"), y = log10(10),
-           label = "<span style='color:#5b5b5b;'>10 FLOP</span>", 
+           label = "<span style='color:#666666;'>10 FLOP</span>", 
            hjust = 0,
            size = 3.25,
            fill = NA,
            label.color = NA) +
   annotate(geom = "richtext",
            x = as.Date("1938-01-01"), y = log10(1000),
-           label = "<span style='color:#5b5b5b;'>1,000 FLOP</span>", 
+           label = "<span style='color:#666666;'>1,000 FLOP</span>", 
            hjust = 0,
            size = 3.25,
            family = "Open Sans",
@@ -676,7 +694,7 @@ plot <- data |>
            label.color = NA) +
   annotate(geom = "richtext",
            x = as.Date("1938-01-01"), y = log10(1e+5),
-           label = "<span style='color:#5b5b5b;'>100,000 FLOP</span>", 
+           label = "<span style='color:#666666;'>100,000 FLOP</span>", 
            hjust = 0,
            size = 3.25,
            family = "Open Sans",
@@ -684,7 +702,7 @@ plot <- data |>
            label.color = NA) +
   annotate(geom = "richtext",
            x = as.Date("1938-01-01"), y = log10(1e+7),
-           label = "<span style='color:#5b5b5b;'>10 million FLOP</span>", 
+           label = "<span style='color:#666666;'>10 million FLOP</span>", 
            hjust = 0,
            size = 3.25,
            family = "Open Sans",
@@ -692,7 +710,7 @@ plot <- data |>
            label.color = NA) +
   annotate(geom = "richtext",
            x = as.Date("1938-01-01"), y = log10(1e+9),
-           label = "<span style='color:#5b5b5b;'>1 billion FLOP</span>", 
+           label = "<span style='color:#666666;'>1 billion FLOP</span>", 
            hjust = 0,
            size = 3.25,
            family = "Open Sans",
@@ -700,7 +718,7 @@ plot <- data |>
            label.color = NA) +
   annotate(geom = "richtext",
            x = as.Date("1938-01-01"), y = log10(1e+11),
-           label = "<span style='color:#5b5b5b;'>100 billion FLOP</span>", 
+           label = "<span style='color:#666666;'>100 billion FLOP</span>", 
            hjust = 0,
            size = 3.25,
            family = "Open Sans",
@@ -708,7 +726,7 @@ plot <- data |>
            label.color = NA) +
   annotate(geom = "richtext",
            x = as.Date("1938-01-01"), y = log10(1e+13),
-           label = "<span style='color:#5b5b5b;'>10 trillion FLOP</span>", 
+           label = "<span style='color:#666666;'>10 trillion FLOP</span>", 
            hjust = 0,
            size = 3.25,
            family = "Open Sans",
@@ -716,7 +734,7 @@ plot <- data |>
            label.color = NA) +
   annotate(geom = "richtext",
            x = as.Date("1938-01-01"), y = log10(1e+15),
-           label = "<span style='color:#5b5b5b;'>1 petaFLOP = 1 quadrillion FLOP</span>", 
+           label = "<span style='color:#666666;'>1 petaFLOP = 1 quadrillion FLOP</span>", 
            hjust = 0,
            size = 3.25,
            family = "Open Sans",
@@ -724,7 +742,7 @@ plot <- data |>
            label.color = NA) +
   annotate(geom = "richtext",
            x = as.Date("1938-01-01"), y = log10(1e+17),
-           label = "<span style='color:#5b5b5b;'>100 petaFLOP</span>", 
+           label = "<span style='color:#666666;'>100 petaFLOP</span>", 
            hjust = 0,
            size = 3.25,
            family = "Open Sans",
@@ -732,7 +750,7 @@ plot <- data |>
            label.color = NA) +
   annotate(geom = "richtext",
            x = as.Date("1938-01-01"), y = log10(1e+19),
-           label = "<span style='color:#5b5b5b;'>10,000 petaFLOP</span>", 
+           label = "<span style='color:#666666;'>10,000 petaFLOP</span>", 
            hjust = 0,
            size = 3.25,
            family = "Open Sans",
@@ -740,7 +758,7 @@ plot <- data |>
            label.color = NA) +
   annotate(geom = "richtext",
            x = as.Date("1938-01-01"), y = log10(1e+21),
-           label = "<span style='color:#5b5b5b;'>1 million petaFLOP</span>", 
+           label = "<span style='color:#666666;'>1 million petaFLOP</span>", 
            hjust = 0,
            size = 3.25,
            family = "Open Sans",
@@ -748,7 +766,7 @@ plot <- data |>
            label.color = NA) +
   annotate(geom = "richtext",
            x = as.Date("1938-01-01"), y = log10(1e+23),
-           label = "<span style='color:#5b5b5b;'>100 million petaFLOP</span>", 
+           label = "<span style='color:#666666;'>100 million petaFLOP</span>", 
            hjust = 0,
            size = 3.25,
            family = "Open Sans",
@@ -756,7 +774,7 @@ plot <- data |>
            label.color = NA) +
   annotate(geom = "richtext",
            x = as.Date("1938-01-01"), y = log10(1e+25),
-           label = "<span style='color:#5b5b5b;'>10 billion petaFLOP</span>", 
+           label = "<span style='color:#666666;'>10 billion petaFLOP</span>", 
            hjust = 0,
            size = 3.25,
            family = "Open Sans",
@@ -764,7 +782,7 @@ plot <- data |>
            label.color = NA) +
   annotate(geom = "richtext", #<16>
            x = as.Date("2020-01-01"), y = log10(0.03),
-           label = "<span style='color:#5b5b5b;'>2020</span>", 
+           label = "<span style='color:#666666;'>2020</span>", 
            hjust = 0.5,
            size = 4.5,
            family = "Open Sans",
@@ -772,7 +790,7 @@ plot <- data |>
            label.color = NA) +
   annotate(geom = "richtext",
            x = as.Date("2010-01-01"), y = log10(0.03),
-           label = "<span style='color:#5b5b5b;'>2010</span>", 
+           label = "<span style='color:#666666;'>2010</span>", 
            hjust = 0.5,
            size = 4.5,
            family = "Open Sans",
@@ -780,7 +798,7 @@ plot <- data |>
            label.color = NA) +
   annotate(geom = "richtext",
            x = as.Date("2000-01-01"), y = log10(0.03),
-           label = "<span style='color:#5b5b5b;'>2000</span>", 
+           label = "<span style='color:#666666;'>2000</span>", 
            hjust = 0.5,
            size = 4.5,
            family = "Open Sans",
@@ -788,7 +806,7 @@ plot <- data |>
            label.color = NA) +
   annotate(geom = "richtext",
            x = as.Date("1990-01-01"), y = log10(0.03),
-           label = "<span style='color:#5b5b5b;'>1990</span>", 
+           label = "<span style='color:#666666;'>1990</span>", 
            hjust = 0.5,
            size = 4.5,
            family = "Open Sans",
@@ -796,7 +814,7 @@ plot <- data |>
            label.color = NA) +
   annotate(geom = "richtext",
            x = as.Date("1980-01-01"), y = log10(0.03),
-           label = "<span style='color:#5b5b5b;'>1980</span>", 
+           label = "<span style='color:#666666;'>1980</span>", 
            hjust = 0.5,
            size = 4.5,
            family = "Open Sans",
@@ -804,7 +822,7 @@ plot <- data |>
            label.color = NA) +
   annotate(geom = "richtext",
            x = as.Date("1970-01-01"), y = log10(0.03),
-           label = "<span style='color:#5b5b5b;'>1970</span>", 
+           label = "<span style='color:#666666;'>1970</span>", 
            hjust = 0.5,
            size = 4.5,
            family = "Open Sans",
@@ -812,7 +830,7 @@ plot <- data |>
            label.color = NA) +
   annotate(geom = "richtext",
            x = as.Date("1960-01-01"), y = log10(0.03),
-           label = "<span style='color:#5b5b5b;'>1960</span>", 
+           label = "<span style='color:#666666;'>1960</span>", 
            hjust = 0.5,
            size = 4.5,
            family = "Open Sans",
@@ -820,7 +838,7 @@ plot <- data |>
            label.color = NA) +
   annotate(geom = "richtext",
            x = as.Date("1950-01-01"), y = log10(0.03),
-           label = "<span style='color:#5b5b5b;'>1950</span>", 
+           label = "<span style='color:#666666;'>1950</span>", 
            hjust = 0.5,
            size = 4.5,
            family = "Open Sans",
@@ -828,7 +846,7 @@ plot <- data |>
            label.color = NA) +
   annotate(geom = "richtext",
            x = as.Date("1940-01-01"), y = log10(0.03),
-           label = "<span style='color:#5b5b5b;'>1940</span>", 
+           label = "<span style='color:#666666;'>1940</span>", 
            hjust = 0.5,
            size = 4.5,
            family = "Open Sans",
@@ -836,15 +854,15 @@ plot <- data |>
            label.color = NA) +
   annotate(geom = "richtext", #<17>
            x = as.Date("1980-01-01"), y = log10(2.3),
-           label = "<span style='color:#5b5b5b;'>Pre Deep Learning Era</span>", 
+           label = "<span style='color:#666666;'>Pre Deep Learning Era</span>", 
            hjust = 0.5,
-           size = 2.85,
+           size = 3,
            family = "Open Sans",
            fill = "white",
            label.color = NA) +
   annotate(geom = "richtext",
            x = as.Date("1980-01-01"), y = log10(0.9),
-           label = "<span style='color:#5b5b5b;'>Training computation grew in line with Moore&apos;s law, doubling every 20 months</span>", 
+           label = "<span style='color:#666666;'>Training computation grew in line with Moore&apos;s law, doubling every 20 months</span>", 
            hjust = 0.5,
            size = 2.85,
            family = "Open Sans",
@@ -853,15 +871,15 @@ plot <- data |>
            label.color = NA) +
   annotate(geom = "richtext",
            x = as.Date("2018-01-01"), y = log10(2.3),
-           label = "<span style='color:#5b5b5b;'>Deep Learning Era</span>", 
+           label = "<span style='color:#666666;'>Deep Learning Era</span>", 
            hjust = 0.5,
-           size = 2.85,
+           size = 3,
            family = "Open Sans",
            fill = "white",
            label.color = NA) +
   annotate(geom = "richtext",
            x = as.Date("2018-01-01"), y = log10(0.4),
-           label = "<span style='color:#5b5b5b;'>Increases in training computation<br>accelerated, doubling roughlt<br>every 6 months</span>", 
+           label = "<span style='color:#666666;'>Increases in training computation<br>accelerated, doubling roughlt<br>every 6 months</span>", 
            hjust = 0.5,
            size = 2.85,
            family = "Open Sans",
@@ -880,16 +898,17 @@ plot <- data |>
   labs(x = NULL, #<22>
        y = NULL,
        color = "The color indicates the domain of the AI system:", #<23>
-       title = "<span style='color:#5b5b5b;'><b>The rise of artificial intelligence over the last 8 decades:</b> As training<br>computation has increased, AI systems have become more powerful</span>" #<24>
+       title = "<span style='color:#666666;'><b>The rise of artificial intelligence over the last 8 decades:</b> As training<br>computation has increased, AI systems have become more powerful</span>" #<24>
        ) + 
-  theme(legend.position = c(0.357, 0.985), #<25>
+  guides(color = guide_legend(override.aes = list(alpha = 1))) +
+  theme(legend.position = c(0.3675, 0.985), #<25>
         legend.direction = "horizontal", #<26>
         legend.spacing.x = unit(-0.1,'cm'), #<27>
-        legend.title = element_markdown(family = "Open Sans", size = 10, color = "#5b5b5b"), #<28>
-        legend.text = element_markdown(family = "Open Sans"), #<29>
+        legend.title = element_markdown(family = "Open Sans", size = 10, color = "#666666"), #<28>
+        legend.text = element_markdown(family = "Open Sans", size = 10), #<29>
         plot.title = element_markdown(hjust = 0.2275, vjust = 0.99, size = 18.5, family = "Playfair Display"), #<30>
         plot.title.position = "plot", #<31>
-        plot.margin = margin(t = 0, r = 0, b = -1, l = 10), #<32>
+        plot.margin = margin(t = 0, r = -10, b = -10, l = -10), #<32>
         axis.text = element_blank()) #<33>
 
 logo <- png::readPNG(here("images", "ourWorldDataLogo.png"), native = TRUE) #<34>
@@ -973,4 +992,3 @@ plot + #<35>
 34. Read in the Our World In Data logo
 
 35. Add the logo on top of the plot, but under plot elements other than the background
-
