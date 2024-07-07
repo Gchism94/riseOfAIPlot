@@ -1,0 +1,4 @@
+- source: plotnineRiseOfAI.qmd
+  quarto-pub:
+    - id: 05b3b6c7-7b28-4012-a86b-92cf21bd5802
+      url: 'https://gchism.quarto.pub/plotnineriseofai'
