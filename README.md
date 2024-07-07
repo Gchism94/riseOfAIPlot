@@ -1,6 +1,6 @@
 # Rise of AI Plot Reproduction
 
-This project was conducted to test my `ggplot2` skills in reproducing [**The rise of artificial intelligence over the last 8 decades**](https://ourworldindata.org/brief-history-of-ai)plot by [Our World in Data](https://ourworldindata.org/). The plot has some slight differences based on the data used in my version vs the original.
+This project uses {plotnine} to reproduce my {ggplot2} version of [The rise of artificial intelligence over the last 8 decades](https://ourworldindata.org/brief-history-of-ai) ([Roser 2022](https://gchism.quarto.pub/plotnineriseofai/#ref-owid-brief-history-of-ai)) plot by [Our World in Data](https://ourworldindata.org/). The plot has some slight differences based on the data used in my version vs the original.
 
 The original plot is licensed under [**CC-BY**](https://creativecommons.org/licenses/by/4.0/) by the authors Charlie Giattino, Edouard Mathieu, and Max Roser.
 
